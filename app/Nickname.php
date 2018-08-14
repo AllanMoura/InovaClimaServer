@@ -8,7 +8,7 @@ class Nickname extends Model
 {
 
     protected $table = 'nicknames';
-    protected $fillabe = [ 'nickname' ];
+    protected $fillable = [ 'nickname' ];
     protected $dates = ['created_at', 'updated_at'];
 
 }

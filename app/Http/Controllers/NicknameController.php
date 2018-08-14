@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Nickname;
+use App\Log;
 
 class NicknameController extends Controller
 {
@@ -25,16 +26,26 @@ class NicknameController extends Controller
             'nickname' => 'required|string|max:20',
         ]);
         $input = $request->input();
-
-        if(Nickname::where('nickname', '=', $input['nickname'])->exists()){
-            return response()->json(['error' => 'nickname ja utilizado, por favor, crie outro'], 409);
+        $nickname = Nickname::firstOrNew(['nickname' => $input['nickname']]);
+        if($nickname == null){
+            $nickname = new Nickname();
+            $nickname->nickname =  $input['nickname'];
+        }else{
+            $log = new Log();
+            $log->acao = 'Logar';
+            $log->descricao = 'nickname: '.$nickname->nickname.' Logou';
+            $log->nicknameId = $nickname->id;
+            $log->save();
+            return response()->json(compact('nickname'));
         }
-
-        $newNickname = new Nickname();
-        $newNickname->nickname = $input['nickname'];
         
-        if($newNickname->save()){
-            return response()->json(compact('newNickname'));
+        if($nickname->save()){
+            $log = new Log();
+            $log->acao = 'Registrar';
+            $log->descricao = 'nickname: '.$nickname->nickname.' registrado';
+            $log->nicknameId = $nickname->id;
+            $log->save();
+            return response()->json(compact('nickname'));
         }else{
             return response()->json(['error' => 'Problema ao salvar nickname', 'status' => '500'], 500);
         }
