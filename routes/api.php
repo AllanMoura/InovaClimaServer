@@ -22,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/', 'HomeController@version')->name('api.index');
 Route::get('/nicknames', "NicknameController@index")->name('nicknames.index');
 Route::post('/nicknames', "NicknameController@register")->name('nicknames.register');
+Route::post('/places', "PlaceController@createPlace")->name('places.create');
+Route::get('/places', "PlaceController@index")->name('places.index');
+Route::post('/places/search', "PlaceController@searchPlaces")->name('places.search');

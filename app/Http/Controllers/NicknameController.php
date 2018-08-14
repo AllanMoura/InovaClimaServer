@@ -27,7 +27,7 @@ class NicknameController extends Controller
         ]);
         $input = $request->input();
         $nickname = Nickname::firstOrNew(['nickname' => $input['nickname']]);
-        if($nickname == null){
+        if($nickname->id == null){
             $nickname = new Nickname();
             $nickname->nickname =  $input['nickname'];
         }else{
