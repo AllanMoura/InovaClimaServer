@@ -17,6 +17,7 @@ class CreatePrevisaosTable extends Migration
             $table->increments('id');
             $table->integer('placeId')->unsigned();
             $table->string('periodo');
+            $table->integer('icon');
             $table->integer('maximaGrau');
             $table->integer('minimaGrau');
             $table->string('descricao');

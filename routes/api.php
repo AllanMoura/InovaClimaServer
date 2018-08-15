@@ -25,3 +25,5 @@ Route::post('/nicknames', "NicknameController@register")->name('nicknames.regist
 Route::post('/places', "PlaceController@createPlace")->name('places.create');
 Route::get('/places', "PlaceController@index")->name('places.index');
 Route::post('/places/search', "PlaceController@searchPlaces")->name('places.search');
+Route::post('/favoritos', "FavoritoController@changeFavorito")->name('favoritos.change');
+Route::get('/favoritos/{nicknameId}', "FavoritoController@getFavoritos")->name('favoritos.getFavoritos');

@@ -13,6 +13,6 @@ class Nickname extends Model
 
     public function favoritos()
     {
-        return $this->hasMany('App\Favorito');
+        return $this->hasMany('App\Favorito', 'nicknameId');
     }
 }
