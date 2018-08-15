@@ -21,7 +21,7 @@ class CreatePrevisaosTable extends Migration
             $table->integer('maximaGrau');
             $table->integer('minimaGrau');
             $table->string('descricao');
-            $table->string('estabilidadeTempo');
+            $table->string('estabilidadeTemp');
             $table->string('direcaoVento');
             $table->string('intensidadeVento');
             $table->integer('umidArMax');

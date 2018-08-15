@@ -67,7 +67,8 @@ class PlaceController extends Controller
 
         $places = collect();
         foreach($pieces as $part){
-            $list = Place::where('bairro', "ILIKE", "%".$part."%")->get();
+            //$list = Place::where('bairro', "ILIKE", "%".$part."%")->get();
+            $list = Place::where('bairro', "ILIKE", "%".$part."%")->with('previsoes')->get();
             $places = $places->merge($list);
         }
         $places = $places->sort(function($a, $b) use ($query){
