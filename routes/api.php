@@ -27,3 +27,4 @@ Route::get('/places', "PlaceController@index")->name('places.index');
 Route::post('/places/search', "PlaceController@searchPlaces")->name('places.search');
 Route::post('/favoritos', "FavoritoController@changeFavorito")->name('favoritos.change');
 Route::get('/favoritos/{nicknameId}', "FavoritoController@getFavoritos")->name('favoritos.getFavoritos');
+Route::post('/previsao', "PlaceController@editPrevisoes")->name('previsoes.edit');

@@ -7,6 +7,8 @@ use Illuminate\Support\Collection;
 use App\Place;
 use App\Nickname;
 use App\Log;
+use App\Previsao;
+use Carbon\Carbon;
 
 class PlaceController extends Controller
 {
@@ -14,6 +16,37 @@ class PlaceController extends Controller
     {
         $places = Place::all();
         return response()->json(compact('places'));
+    }
+
+    public function editPrevisoes(Request $request){
+        $input = $request->input();
+        if(!isset($input['previsoes'])){
+            return response()->json(['error' => 'Bad Request - previsoes is missing'], 400);
+        }
+        $previsoes = $input['previsoes'];
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        foreach($previsoes as $previsao){
+            $previsaoAtual = Previsao::find($previsao['id']);
+            if(!$previsaoAtual){
+                return response()->json(['error' => 'Previsao Not Found'], 404);
+            }
+            $previsaoAtual->periodo = $previsao['periodo'];
+            $previsaoAtual->icon = $previsao['icon'];
+            $previsaoAtual->maximaGrau = $previsao['maximaGrau'];
+            $previsaoAtual->minimaGrau = $previsao['minimaGrau'];
+            $previsaoAtual->descricao = $previsao['descricao'];
+            $previsaoAtual->estabilidadeTemp = $previsao['estabilidadeTemp'];
+            $previsaoAtual->direcaoVento = $previsao['direcaoVento'];
+            $previsaoAtual->intensidadeVento = $previsao['intensidadeVento'];
+            $previsaoAtual->umidArMax = $previsao['umidArMax'];
+            $previsaoAtual->umidArMin = $previsao['umidArMin'];
+            $previsaoAtual->updated_at = $now;
+            if(!$previsaoAtual->save()){
+                return response()->json(['error' => 'Problema ao salvar Previsao'.$previsao['id'], 'status' => '500'], 500);
+            }
+        }
+
+        return response()->json(compact('previsoes'));
     }
 
     public function createPlace(Request $request)
