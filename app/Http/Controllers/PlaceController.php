@@ -116,4 +116,12 @@ class PlaceController extends Controller
 
         return response()->json(compact('places'));
     }
+
+    public function getPlace($placeId){
+        $place = Place::find($placeId);
+        if(!$place){
+            return response()->json(['error' => 'Place Not Found'], 404);
+        }
+        return response()->json(compact('place'));
+    }
 }
