@@ -17,7 +17,7 @@ class FavoritoController extends Controller
         $favoritos = $nickname->favoritos()->get();
         $places =collect([]);
         foreach($favoritos as $favorito){ 
-            $place = $favorito->place()->with('previsoes')->get();
+            $place = $favorito->place()->with('previsoes')->first();
             $places->push($place);
         }
         return response()->json(compact('places'));
