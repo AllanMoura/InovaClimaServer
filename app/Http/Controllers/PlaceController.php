@@ -78,11 +78,12 @@ class PlaceController extends Controller
         if($input['query'] == null){
             return response()->json(['error' => 'Preencha a barra de busca'], 400);
         }
-        if(!isset($input['nickname'])){
-            return response()->json(['error' => 'Bad Request - nickname is missing'], 400);
+        if(!isset($input['nicknameId'])){
+            return response()->json(['error' => 'Bad Request - nicknameId is missing'], 400);
         }else{
-            $nickname = Nickname::firstOrNew(['nickname' => $input['nickname']]);
-            if($nickname->id == null){
+            $nickname = Nickname::find($input['nicknameId']);
+            //$nickname = Nickname::firstOrNew(['nickname' => $input['nickname']]);
+            if(!$nickname){
                 return response()->json(['error' => 'nickname not registered'], 401);
             }else{
                 $log = new Log();
