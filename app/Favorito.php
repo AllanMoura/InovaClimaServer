@@ -14,4 +14,8 @@ class Favorito extends Model
     {
         return $this->belongsTo('App\Nickname');
     }
+
+    public function place(){
+        return $this->belongsTo('App\Place', 'placeId');
+    }
 }

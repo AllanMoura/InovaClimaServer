@@ -15,7 +15,12 @@ class FavoritoController extends Controller
             return response()->json(['error' => 'nicknameId not Found'], 404);
         }
         $favoritos = $nickname->favoritos()->get();
-        return response()->json(compact('favoritos'));
+        $places =collect([]);
+        foreach($favoritos as $favorito){ 
+            $place = $favorito->place()->with('previsoes')->get();
+            $places->push($place);
+        }
+        return response()->json(compact('places'));
     }
     
     public function changeFavorito(Request $request)
