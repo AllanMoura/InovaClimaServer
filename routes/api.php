@@ -20,6 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 
 Route::get('/', 'HomeController@version')->name('api.index'); // versão
+Route::get('/atlgo', 'HomeController@getAtlGo')->name('api.atlGo'); // versão
+Route::get('/atlmg', 'HomeController@getAtlMg')->name('api.atlMg'); // versão
+Route::get('/botafogo', 'HomeController@getBotaFogo')->name('api.botafogo'); // versão
+Route::get('/bahia', 'HomeController@getBahia')->name('api.bahia'); // versão
+
 Route::get('/nicknames', "NicknameController@index")->name('nicknames.index'); //Lista de todos os usuarios
 Route::post('/nicknames', "NicknameController@register")->name('nicknames.register'); //Login/registra, se existir, loga, se não, registra. atributos :> nickname: string
 Route::post('/places', "PlaceController@createPlace")->name('places.create');//Cria um novo place - elemento :> cidade: string, bairro: string
