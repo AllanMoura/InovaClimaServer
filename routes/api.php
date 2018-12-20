@@ -34,3 +34,5 @@ Route::post('/favoritos', "FavoritoController@changeFavorito")->name('favoritos.
 Route::get('/favoritos/{nicknameId}', "FavoritoController@getFavoritos")->name('favoritos.getFavoritos');// funcao get que recebe um nicknameId e retorna a lista de places favoritos do usuario
 Route::post('/previsao', "PlaceController@editPrevisoes")->name('previsoes.edit'); // recebe uma lista de previsoes e atualiza no servidor, retorna a mesma lista de previsoes
 Route::get('/places/{placeId}', "PlaceController@getPlace")->name('places.getPlace');// retorna um place, recebe um placeId como parametro
+Route::post('/usuarios', "UsuarioController@createOrLogin")->name('usuarios.createOrLogin');
+Route::get('/usuarios', "UsuarioController@index")->name('usuarios.index');
