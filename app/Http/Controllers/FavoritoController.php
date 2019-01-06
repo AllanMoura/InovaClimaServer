@@ -9,7 +9,8 @@ use App\Nickname;
 
 class FavoritoController extends Controller
 {
-    public function getFavoritos($nicknameId){
+    public function getFavoritos($nicknameId)
+    {
         $nickname = Nickname::find($nicknameId);
         if(!$nickname){
             return response()->json(['error' => 'nicknameId not Found'], 404);

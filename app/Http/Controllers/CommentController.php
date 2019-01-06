@@ -37,20 +37,20 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $input = $request->input();
-        if(!isset($input['placeId'])){
-            return response()->json(['error' => 'Bad Request - cidade is missing'], 400);
-        }else if(!isset($input['usuarioId'])){
-            return response()->json(['error' => 'Bad Request - bairro is missing'], 400);    
-        }else if(!isset($input['comment'])){
+        if (!isset($input['placeId'])) {
+            return response()->json(['error' => 'Bad Request - placeId is missing'], 400);
+        } else if (!isset($input['nicknameId'])) {
+            return response()->json(['error' => 'Bad Request - nicknameId is missing'], 400);
+        } else if(!isset($input['comment'])) {
             return response()->json(['error' => 'Bad Request - comment is missing'], 400);
         }
         $comment = new Comment();
-        $comment->usuarioId = $input['usuarioId'];
+        $comment->nicknameId = $input['nicknameId'];
         $comment->placeId = $input['placeId'];
         $comment->comment = $input['comment'];
-        if($comment->save()){
+        if ($comment->save()) {
             return response()->json($comment);
-        }else{
+        } else {
             return response()->json(['error' => 'Server error - cannot save new comment.'], 500);
         }
     }

@@ -16,6 +16,7 @@ class CreateNicknamesTable extends Migration
         Schema::create('nicknames', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nickname')->unique();
+            $table->string('hash')->unique();
             $table->timestamps();
         });
     }

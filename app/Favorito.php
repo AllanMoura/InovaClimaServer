@@ -15,7 +15,13 @@ class Favorito extends Model
         return $this->belongsTo('App\Nickname');
     }
 
-    public function place(){
+    public function usuario()
+    {
+        return $this->belongsTo('App\Usuario', 'nicknameId');
+    }
+
+    public function place()
+    {
         return $this->belongsTo('App\Place', 'placeId');
     }
 }

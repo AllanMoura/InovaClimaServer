@@ -8,6 +8,7 @@ use App\Place;
 use App\Nickname;
 use App\Log;
 use App\Previsao;
+use App\Comment;
 use Carbon\Carbon;
 
 class PlaceController extends Controller
@@ -94,8 +95,6 @@ class PlaceController extends Controller
             }
         }
         
-       
-
         $query = $input['query'];
         $pieces = explode(" ", $query);
 
@@ -118,11 +117,19 @@ class PlaceController extends Controller
         return response()->json(compact('places'));
     }
 
-    public function getPlace($placeId){
-        $place = Place::find($placeId);
+    public function getPlace($placeId)
+    {
+        $place = Place::with('previsoes')->find($placeId);
         if(!$place){
             return response()->json(['error' => 'Place Not Found'], 404);
         }
         return response()->json(compact('place'));
+    }
+
+    public function getComments($placeId)
+    {
+        $place = Place::findOrFail($placeId);
+        $comments = $place->comments()->with('nickname')->orderBy('updated_at', 'DESC')->get();
+        return response()->json(compact('comments'));
     }
 }

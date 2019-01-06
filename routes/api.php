@@ -34,5 +34,6 @@ Route::post('/favoritos', "FavoritoController@changeFavorito")->name('favoritos.
 Route::get('/favoritos/{nicknameId}', "FavoritoController@getFavoritos")->name('favoritos.getFavoritos');// funcao get que recebe um nicknameId e retorna a lista de places favoritos do usuario
 Route::post('/previsao', "PlaceController@editPrevisoes")->name('previsoes.edit'); // recebe uma lista de previsoes e atualiza no servidor, retorna a mesma lista de previsoes
 Route::get('/places/{placeId}', "PlaceController@getPlace")->name('places.getPlace');// retorna um place, recebe um placeId como parametro
-Route::post('/usuarios', "UsuarioController@createOrLogin")->name('usuarios.createOrLogin');
-Route::get('/usuarios', "UsuarioController@index")->name('usuarios.index');
+Route::get('/places/{placeId}/comments', "PlaceController@getComments")->name('places.getPlace');// retorna os comments do place, recebe o placeId como parametro
+Route::post('/comments', "CommentController@store")->name('comments.create');// cria um comment para o place, recebe o placeId como parametro na url
+Route::get('/comments', "CommentController@index")->name('comments.index');// retorna todos os comments no banco de dados

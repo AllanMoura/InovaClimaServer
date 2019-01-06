@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $table = 'comments';
-    protected $fillable = ['usuarioId', 'placeId', 'comment'];
+    protected $fillable = ['nicknameId', 'placeId', 'comment'];
     protected $dates = ['created_at', 'updated_at'];
 
     public function place()
@@ -15,8 +15,8 @@ class Comment extends Model
         return $this->belongsTo('App\Place', 'placeId');
     }
 
-    public function usuario()
+    public function nickname()
     {
-        return $this->belongsTo('App\Usuario', 'usuarioId');
+        return $this->belongsTo('App\Nickname', 'nicknameId');
     }
 }

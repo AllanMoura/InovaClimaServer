@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DB;
 use App\Nickname;
 use App\Log;
 
@@ -30,6 +31,7 @@ class NicknameController extends Controller
         if($nickname->id == null){
             $nickname = new Nickname();
             $nickname->nickname =  $input['nickname'];
+            $nickname->hash = $this->makeHash('nicknames');
         }else{
             $log = new Log();
             $log->acao = 'Logar';
@@ -115,5 +117,25 @@ class NicknameController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    private function makeHash($table)
+    {
+        $result = null;
+        while(true){
+            $hash = strtolower(str_random(20));
+            $count = DB::table($table)->select()->where('hash', $hash)->count();
+            if($count == 0){
+                $result = $hash;
+                break;
+            }
+        }
+        return $result;
     }
 }
