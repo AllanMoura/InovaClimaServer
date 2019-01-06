@@ -14,4 +14,9 @@ class Place extends Model
     {
         return $this->hasMany('App\Previsao', 'placeId');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'placeId');
+    }
 }
